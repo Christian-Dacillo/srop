@@ -9,44 +9,24 @@ import { CommonModule } from '@angular/common';
   styleUrl: './certificate.css'
 })
 export class CertificateComponent {
-  // Exam section data
-  typeClass = '';
-  dateTaken = '';
-  place = '';
-  rating = '';
-  orNo = '';
-  amount = '';
-  date = '';
-  signatoryName = 'ENGR. FRANCIS THOMAS M. ALFANTA';
-  signatoryTitle = '';
-
-  // Certificate data
-  registrationNo = '';
-  name = '';
-  address1 = '';
-  address2 = ' ';
-  birthdate = '';
-  citizenship = '';
-  sex = '';
-  height = '';
-  weight = '';
-  dateIssued = '';
-  validUntil = '';
-  commissionSignatory = 'ATTY. JUDY ANN N. BILANGEL';
-  commissionTitle = 'OIC - Regional Director, RV';
-  snNumber = '';
-
   isPreview = true;
+  printMode: 'none' | 'background' | 'data' = 'none';
 
-  showPreview() {
+  printWithBackground() {
     this.isPreview = true;
+    this.printMode = 'background';
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => { this.printMode = 'none'; }, 500);
+    }, 150);
   }
 
   print() {
     this.isPreview = false;
+    this.printMode = 'data';
     setTimeout(() => {
       window.print();
-      setTimeout(() => (this.isPreview = true), 500);
-    }, 100);
+      setTimeout(() => { this.isPreview = true; this.printMode = 'none'; }, 500);
+    }, 150);
   }
 }

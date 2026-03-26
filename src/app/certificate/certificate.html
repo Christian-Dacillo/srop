@@ -1,70 +1,89 @@
 <div class="page-wrapper">
 
-  <!-- Buttons -->
   <div class="btn-row no-print">
-    <button class="btn btn-preview" (click)="showPreview()">Preview</button>
-    <button class="btn btn-print" (click)="print()">Print</button>
+    <button class="btn btn-preview" (click)="isPreview = !isPreview">
+      {{ isPreview ? '✏ Edit Mode' : '👁 Preview Mode' }}
+    </button>
+    <button class="btn btn-print-bg" (click)="printWithBackground()">🖨 Print with Background</button>
+    <button class="btn btn-print" (click)="print()">🖨 Print Data Only</button>
+    <span class="hint" *ngIf="!isPreview">Click any value to edit</span>
   </div>
 
-  <!-- Full Sheet: 3 columns -->
-  <div class="sheet" [class.preview-mode]="isPreview" [class.print-mode]="!isPreview">
+  <div class="sheet" [class.preview-mode]="isPreview" [class.print-mode]="!isPreview" [attr.data-print]="printMode">
 
     <!-- LEFT: Exam Info -->
     <div class="exam-section">
       <div class="exam-inner">
 
-        <div class="exam-row">
-          <span class="e-label">TYPE/CLASS OF<br>EXAMINATION</span>
-          <span class="e-colon">:</span>
-          <span class="e-value">{{typeClass}}</span>
-        </div>
+        <div class="exam-fields">
+          <div class="exam-row">
+            <span class="e-label">TYPE/CLASS OF<br>EXAMINATION</span>
+            <div class="e-field">
+              <span class="e-colon">:</span>
+              <span class="e-underline"><span class="e-value editable" contenteditable="true">GROC</span></span>
+            </div>
+          </div>
 
-        <div class="exam-row no-label">
-          <span class="e-value e-indent">{{dateTaken}}</span>
-        </div>
+          <div class="exam-row">
+            <span class="e-label">DATE TAKEN</span>
+            <div class="e-field">
+              <span class="e-colon">:</span>
+              <span class="e-underline"><span class="e-value editable" contenteditable="true">2026-03-24</span></span>
+            </div>
+          </div>
 
-        <div class="exam-row label-only">
-          <span class="e-label">DATE TAKEN</span>
-        </div>
+          <div class="exam-row">
+            <span class="e-label">PLACE</span>
+            <div class="e-field">
+              <span class="e-colon">:</span>
+              <span class="e-underline"><span class="e-value editable" contenteditable="true">NTC R5 - Conference Room, Legazpi City, Albay</span></span>
+            </div>
+          </div>
 
-        <div class="exam-row">
-          <span class="e-label">PLACE</span>
-          <span class="e-colon">:</span>
-          <span class="e-value">{{place}}</span>
-        </div>
+          <div class="exam-row">
+            <span class="e-label">RATING</span>
+            <div class="e-field">
+              <span class="e-colon">:</span>
+              <span class="e-underline"><span class="e-value editable" contenteditable="true">A</span></span>
+            </div>
+          </div>
 
-        <div class="exam-row">
-          <span class="e-label">RATING</span>
-          <span class="e-colon">:</span>
-          <span class="e-value">{{rating}}</span>
-        </div>
+          <div class="exam-row">
+            <span class="e-label">PAID UNDER OR NO.</span>
+            <div class="e-field">
+              <span class="e-colon">:</span>
+              <span class="e-underline"><span class="e-value editable" contenteditable="true">1488803</span></span>
+            </div>
+          </div>
 
-        <div class="exam-row">
-          <span class="e-label">PAID UNDER OR NO.</span>
-          <span class="e-colon">:</span>
-          <span class="e-value">{{orNo}}</span>
-        </div>
+          <div class="exam-row">
+            <span class="e-label">AMOUNT</span>
+            <div class="e-field">
+              <span class="e-colon">:</span>
+              <span class="e-underline"><span class="e-value editable" contenteditable="true">Php240.00</span></span>
+            </div>
+          </div>
 
-        <div class="exam-row">
-          <span class="e-label">AMOUNT</span>
-          <span class="e-colon">:</span>
-          <span class="e-value">{{amount}}</span>
-        </div>
-
-        <div class="exam-row">
-          <span class="e-label">DATE</span>
-          <span class="e-colon">:</span>
-          <span class="e-value">{{date}}</span>
+          <div class="exam-row">
+            <span class="e-label">DATE</span>
+            <div class="e-field">
+              <span class="e-colon">:</span>
+              <span class="e-underline"><span class="e-value editable" contenteditable="true">03/24/2026</span></span>
+            </div>
+          </div>
         </div>
 
         <div class="exam-approval">
-          <div class="e-label">RECOMMENDING APPROVAL:</div>
+          <div class="e-rec-label">RECOMMENDING APPROVAL:</div>
           <div class="approval-sig-area"></div>
           <div class="approval-line"></div>
           <div class="approval-caption">SIGNATURE</div>
-          <div class="approval-name">{{signatoryName}}</div>
+          <div class="approval-name-wrap">
+            <span class="approval-name editable" contenteditable="true">ENGR. FRANCIS THOMAS M. ALFANTA</span>
+          </div>
+          <div class="approval-name-line"></div>
           <div class="approval-caption">NAME</div>
-          <div class="approval-sub">{{signatoryTitle}}</div>
+          <div class="approval-sub editable" contenteditable="true">luis</div>
         </div>
 
       </div>
@@ -72,25 +91,21 @@
 
     <!-- MIDDLE: Certificate -->
     <div class="cert-section">
-      <ng-container *ngTemplateOutlet="certCard; context: { watermark: 'RECEIVED COPY' }"></ng-container>
+      <ng-container *ngTemplateOutlet="certCard; context: { watermark: '(RECORDS)' }"></ng-container>
     </div>
 
     <!-- RIGHT: Duplicate -->
     <div class="cert-section">
-      <ng-container *ngTemplateOutlet="certCard; context: { watermark: 'PROCESSING COPY' }"></ng-container>
+      <ng-container *ngTemplateOutlet="certCard; context: { watermark: '(ISSUING UNIT)' }"></ng-container>
     </div>
 
   </div>
 </div>
 
-<!-- Certificate Card Template -->
 <ng-template #certCard let-watermark="watermark">
   <div class="cert-card">
-
-    <!-- Watermark -->
     <div class="watermark" *ngIf="isPreview">{{watermark}}</div>
 
-    <!-- Header: logo left, text center -->
     <div class="c-header">
       <img src="ntc-seal.png.png" alt="NTC Seal" class="c-logo" />
       <div class="c-header-text">
@@ -100,102 +115,91 @@
         <div class="c-ntc">National Telecommunications Commission</div>
         <div class="c-metro">Metro Manila</div>
       </div>
-      <div class="new-badge">NEW</div>
     </div>
 
-    <!-- Certificate title -->
-    <div class="c-title">SPECIAL RADIOTELEPHONE OPERATOR CERTIFICATE</div>
+    <div class="c-title-wrap">
+      <span class="c-title">SPECIAL RADIOTELEPHONE OPERATOR CERTIFI</span><span class="c-title-cate"><span class="new-badge editable" contenteditable="true">NEW</span>CATE</span>
+    </div>
     <div class="c-subtitle">(SROP-GOV'T)</div>
 
-    <!-- Registration -->
     <div class="c-reg-row">
       <span class="c-reg-label">Registration No.</span>
-      <span class="c-reg-value">{{registrationNo}}</span>
+      <span class="c-reg-value editable" contenteditable="true"></span>
     </div>
 
-    <!-- NAME row -->
-    <div class="c-table-row border-top border-bottom">
+    <div class="c-table-row border-bottom">
       <div class="c-cell full">
         <div class="c-cell-label">NAME:</div>
-        <div class="c-cell-value c-name">{{name}}</div>
+        <div class="c-cell-value c-name editable" contenteditable="true"></div>
       </div>
     </div>
 
-    <!-- ADDRESS row -->
     <div class="c-table-row border-bottom">
       <div class="c-cell full">
         <div class="c-cell-label">ADDRESS:</div>
-        <div class="c-cell-value">{{address1}}</div>
+        <div class="c-cell-value editable" contenteditable="true"></div>
       </div>
     </div>
 
-    <!-- Address line 2 -->
     <div class="c-table-row border-bottom">
       <div class="c-cell full c-addr2">
-        <div class="c-cell-value c-addr2-val">{{address2}}</div>
+        <div class="c-cell-value c-addr2-val editable" contenteditable="true"></div>
       </div>
     </div>
 
-    <!-- BIRTHDATE / CITIZENSHIP -->
     <div class="c-table-row border-bottom">
       <div class="c-cell half border-right">
         <div class="c-cell-label">BIRTHDATE (MO/DA/YR):</div>
-        <div class="c-cell-value c-bold">{{birthdate}}</div>
+        <div class="c-cell-value c-bold editable" contenteditable="true">0/0/0</div>
       </div>
       <div class="c-cell half">
         <div class="c-cell-label">CITIZENSHIP:</div>
-        <div class="c-cell-value c-bold">{{citizenship}}</div>
+        <div class="c-cell-value c-bold editable" contenteditable="true">Filipino</div>
       </div>
     </div>
 
-    <!-- SEX / HT / WT -->
     <div class="c-table-row border-bottom">
       <div class="c-cell third border-right">
         <div class="c-cell-label">SEX:</div>
-        <div class="c-cell-value c-bold">{{sex}}</div>
+        <div class="c-cell-value c-bold editable" contenteditable="true"></div>
       </div>
       <div class="c-cell third border-right">
         <div class="c-cell-label">HT (CM):</div>
-        <div class="c-cell-value c-bold">{{height}}</div>
+        <div class="c-cell-value c-bold editable" contenteditable="true"></div>
       </div>
       <div class="c-cell third">
         <div class="c-cell-label">WT (KG):</div>
-        <div class="c-cell-value c-bold">{{weight}}</div>
+        <div class="c-cell-value c-bold editable" contenteditable="true"></div>
       </div>
     </div>
 
-    <!-- DATE ISSUED / VALID UNTIL -->
     <div class="c-table-row border-bottom">
       <div class="c-cell half border-right">
         <div class="c-cell-label">DATE ISSUED:</div>
-        <div class="c-cell-value c-bold">{{dateIssued}}</div>
+        <div class="c-cell-value c-bold editable" contenteditable="true">0/0/0</div>
       </div>
       <div class="c-cell half">
         <div class="c-cell-label">VALID UNTIL:</div>
-        <div class="c-cell-value c-bold">{{validUntil}}</div>
+        <div class="c-cell-value c-bold editable" contenteditable="true">0/0/0</div>
       </div>
     </div>
 
-    <!-- FOR THE COMMISSION -->
-    <div class="c-table-row border-bottom">
+    <div class="c-table-row">
       <div class="c-cell full c-commission-label-row">
         <div class="c-cell-label">FOR THE COMMISSION:</div>
         <div class="c-sig-space"></div>
       </div>
     </div>
 
-    <!-- Signatory -->
     <div class="c-signatory-block">
       <div class="c-sig-line"></div>
-      <div class="c-sig-name">{{commissionSignatory}}</div>
-      <div class="c-sig-title">{{commissionTitle}}</div>
+      <div class="c-sig-name editable" contenteditable="true">ATTY. JUDY ANN N. BILANGEL</div>
+      <div class="c-sig-title editable" contenteditable="true">OIC - Regional Director, RV</div>
     </div>
 
-    <!-- SN -->
     <div class="c-sn-row">
       <span class="c-sn-label">SN-</span>
-      <span class="c-sn-value">{{snNumber}}</span>
+      <span class="c-sn-value editable" contenteditable="true">0000</span>
     </div>
-
   </div>
 </ng-template>

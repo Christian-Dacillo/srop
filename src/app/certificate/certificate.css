@@ -15,7 +15,8 @@
 /* ===== BUTTONS ===== */
 .btn-row {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 16px;
   margin-bottom: 16px;
 }
 .btn {
@@ -28,8 +29,35 @@
   font-weight: bold;
   letter-spacing: 0.5px;
 }
-.btn-preview { background: #1565c0; color: #fff; }
-.btn-print   { background: #2e7d32; color: #fff; }
+.btn-preview  { background: #1565c0; color: #fff; }
+.btn-print    { background: #2e7d32; color: #fff; }
+.btn-print-bg { background: #6a1b9a; color: #fff; }
+.hint {
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+  color: #555;
+  font-style: italic;
+}
+
+/* ===== EDITABLE ===== */
+.editable {
+  cursor: text;
+  border-radius: 2px;
+  min-width: 10px;
+  outline: none;
+  transition: background 0.15s;
+}
+.editable:hover { background: rgba(21,101,192,0.08); }
+.editable:focus { background: rgba(21,101,192,0.13); box-shadow: 0 0 0 1.5px #1565c0; }
+
+/* In preview mode, disable edit indicators */
+.preview-mode .editable {
+  cursor: default;
+  pointer-events: none;
+}
+.preview-mode .editable:hover { background: none; }
+.preview-mode .editable:focus { background: none; box-shadow: none; }
+
 
 /* ===== SHEET ===== */
 .sheet {
@@ -39,81 +67,137 @@
   border: 1.5px solid #888;
   overflow: hidden;
 }
+.sheet.preview-mode { background: #f0e6c0; }
+.sheet.print-mode   { background: #fff; }
 
-.sheet.preview-mode {
-  background: #f0e6c0;
-}
-.sheet.print-mode {
-  background: #fff;
-}
-
-/* ===== EXAM SECTION (left) ===== */
+/* ===== EXAM SECTION ===== */
 .exam-section {
   width: 88mm;
   flex-shrink: 0;
   border-right: 1.5px solid #888;
-  padding: 8px 8px 6px 8px;
+  padding: 10px 10px 8px 10px;
+  display: flex;
+  flex-direction: column;
 }
-
 .exam-inner {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  font-size: 8.5pt;
+  font-size: 7.5pt;
+  flex: 1;
+  justify-content: space-between;
 }
-
 .exam-row {
   display: flex;
   align-items: flex-start;
-  gap: 3px;
+  gap: 4px;
   line-height: 1.3;
 }
-.exam-row.no-label { padding-left: 0; }
-.exam-row.label-only { margin-top: -3px; }
+
+.exam-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 60px;
+}
 
 .e-label {
   font-size: 7pt;
   font-weight: bold;
   text-transform: uppercase;
-  min-width: 82px;
+  width: 68px;
+  flex-shrink: 0;
   line-height: 1.25;
+  padding-top: 1px;
 }
-.e-colon { font-weight: bold; font-size: 8.5pt; }
-.e-value { font-size: 8.5pt; }
-.e-indent { padding-left: 10px; }
 
-/* Approval block */
-.exam-approval {
-  margin-top: 12px;
+.e-field {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
+  flex: 1;
   gap: 1px;
 }
-.approval-sig-area { height: 32px; width: 100%; }
+
+.e-colon {
+  font-weight: bold;
+  font-size: 7.5pt;
+  flex-shrink: 0;
+  line-height: 1;
+  padding-bottom: 2px;
+}
+
+.e-underline {
+  flex: 1;
+  border-bottom: 1.5px solid #333;
+  min-height: 18px;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 1px;
+}
+
+.e-value {
+  font-size: 7.5pt;
+  display: block;
+  width: 100%;
+  line-height: 1.3;
+  outline: none;
+}
+
+.exam-approval {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-bottom: 55px;
+}
+
+.e-rec-label {
+  font-size: 7pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.approval-sig-area { height: 30px; width: 100%; }
+
 .approval-line {
-  border-top: 1px solid #333;
+  border-top: 1.5px solid #222;
   width: 100%;
   margin-bottom: 1px;
 }
+
 .approval-caption {
-  font-size: 6.5pt;
+  font-size: 6pt;
   text-transform: uppercase;
   letter-spacing: 1px;
   width: 100%;
   text-align: center;
+  margin-bottom: 1px;
 }
+
+.approval-name-wrap {
+  width: 100%;
+  text-align: center;
+}
+
 .approval-name {
   font-size: 8pt;
   font-weight: bold;
-  width: 100%;
   text-align: center;
-  margin-top: 2px;
+  display: inline-block;
+  outline: none;
 }
-.approval-sub {
-  font-size: 7.5pt;
+
+.approval-name-line {
+  border-top: 1px solid #333;
   width: 100%;
-  text-align: center;
+  margin-top: 2px;
+  margin-bottom: 1px;
+}
+
+.approval-sub {
+  font-size: 7pt;
+  text-align: left;
+  margin-top: 4px;
+  outline: none;
 }
 
 /* ===== CERT SECTION ===== */
@@ -135,7 +219,6 @@
   overflow: hidden;
 }
 
-/* Watermark */
 .watermark {
   position: absolute;
   top: 48%;
@@ -159,14 +242,12 @@
   gap: 4px;
   position: relative;
 }
-
 .c-logo {
   width: 46px;
   height: 46px;
   object-fit: contain;
   flex-shrink: 0;
 }
-
 .c-header-text {
   flex: 1;
   text-align: center;
@@ -179,25 +260,36 @@
 
 .new-badge {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  font-size: 8.5pt;
+  top: -11px;
+  left: 0;
+  font-size: 8pt;
   font-weight: bold;
-  color: #c00;
-  border: 1.5px solid #c00;
-  padding: 1px 5px;
-  line-height: 1.4;
+  color: rgb(0, 0, 0);
+  padding: 0 2px;
+  line-height: 1.3;
   font-family: Arial, sans-serif;
+  white-space: nowrap;
 }
 
 /* ===== TITLE ===== */
-.c-title {
+.c-title-wrap {
   text-align: center;
-  font-size: 8pt;
+  padding: 2px 6px 0;
+  line-height: 1.2;
+}
+.c-title {
+  font-size: 7pt;
   font-weight: bold;
   text-transform: uppercase;
-  padding: 2px 6px 0;
-  line-height: 1.3;
+  display: inline;
+}
+.c-title-cate {
+  position: relative;
+  display: inline-block;
+  font-size: 7pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding-top: 12px;
 }
 .c-subtitle {
   text-align: center;
@@ -209,18 +301,15 @@
 .c-reg-row {
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 5px;
   padding: 2px 6px 3px;
-  border-bottom: 1px solid #666;
 }
 .c-reg-label { font-size: 7.5pt; }
-.c-reg-value { font-size: 11pt; font-weight: bold; letter-spacing: 0.5px; }
+.c-reg-value { font-size: 11pt; font-weight: bold; letter-spacing: 0.5px; text-decoration: underline; }
 
 /* ===== TABLE ROWS ===== */
-.c-table-row {
-  display: flex;
-  flex-direction: row;
-}
+.c-table-row { display: flex; flex-direction: row; }
 .border-top    { border-top: 1px solid #666; }
 .border-bottom { border-bottom: 1px solid #666; }
 
@@ -229,10 +318,10 @@
   flex-direction: column;
   padding: 2px 6px;
 }
-.c-cell.full   { flex: 1; }
-.c-cell.half   { flex: 1; }
-.c-cell.third  { flex: 1; }
-.border-right  { border-right: 1px solid #666; }
+.c-cell.full  { flex: 1; }
+.c-cell.half  { flex: 1; }
+.c-cell.third { flex: 1; }
+.border-right { border-right: 1px solid #666; }
 
 .c-cell-label {
   font-size: 6.5pt;
@@ -243,41 +332,34 @@
 .c-cell-value {
   font-size: 9pt;
   line-height: 1.4;
+  text-align: center;
 }
-.c-name  { font-size: 10pt; font-weight: bold; }
-.c-bold  { font-weight: bold; }
+.c-name { font-size: 10pt; font-weight: bold; text-align: center; }
+.c-bold { font-weight: bold; text-align: center; }
 
-/* Address line 2 */
 .c-addr2 { padding-top: 0; padding-bottom: 2px; }
 .c-addr2-val {
   font-size: 8pt;
   text-align: center;
-  font-style: italic;
+  font-style: normal;
 }
 
-/* Commission label row */
-.c-commission-label-row {
-  flex-direction: column;
-}
+.c-commission-label-row { flex-direction: column; }
 .c-sig-space { height: 28px; }
 
-/* ===== SIGNATORY BLOCK ===== */
+/* ===== SIGNATORY ===== */
 .c-signatory-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2px 6px 0;
-  border-bottom: 1px solid #666;
 }
-.c-sig-line {
-  border-top: 1px solid #444;
-  width: 80%;
-  margin-bottom: 1px;
-}
+.c-sig-line { display: none; }
 .c-sig-name {
   font-size: 8.5pt;
   font-weight: bold;
   text-align: center;
+  text-decoration: underline;
 }
 .c-sig-title {
   font-size: 7.5pt;
@@ -285,7 +367,7 @@
   padding-bottom: 3px;
 }
 
-/* ===== SN ROW ===== */
+/* ===== SN ===== */
 .c-sn-row {
   display: flex;
   align-items: baseline;
@@ -296,7 +378,7 @@
 .c-sn-label {
   font-size: 12pt;
   font-weight: bold;
-  color: #c00;
+  color: #00c;
 }
 .c-sn-value {
   font-size: 22pt;
@@ -307,7 +389,12 @@
 
 /* ===== PRINT ===== */
 @media print {
-  @page { size: A4 landscape; margin: 6mm; }
+  @page { size: A4 landscape; margin: 8mm; }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 
   body { background: #fff !important; }
 
@@ -317,60 +404,101 @@
     background: none !important;
     padding: 0;
     min-height: unset;
+    display: block;
   }
 
-  .sheet {
+  /* ---- PRINT WITH BACKGROUND ---- */
+  .sheet[data-print="background"] {
+    background-color: #f0e6c0 !important;
+    border: 1.5px solid #888 !important;
+    width: 277mm !important;
+    height: 190mm !important;
+    box-shadow: inset 0 0 0 1000px #f0e6c0 !important;
+  }
+
+  .sheet[data-print="background"] .exam-section,
+  .sheet[data-print="background"] .cert-section,
+  .sheet[data-print="background"] .cert-card,
+  .sheet[data-print="background"] .c-cell,
+  .sheet[data-print="background"] .exam-inner,
+  .sheet[data-print="background"] .exam-fields,
+  .sheet[data-print="background"] .exam-approval,
+  .sheet[data-print="background"] .c-header,
+  .sheet[data-print="background"] .c-signatory-block,
+  .sheet[data-print="background"] .c-sn-row {
+    background-color: #f0e6c0 !important;
+  }
+
+  .sheet[data-print="background"] .exam-section {
+    border-right: 1.5px solid #888 !important;
+  }
+
+  .sheet[data-print="background"] .cert-section {
+    border-right: 1.5px solid #888 !important;
+  }
+
+  .sheet[data-print="background"] .cert-section:last-child {
+    border-right: none !important;
+  }
+
+  /* ---- PRINT DATA ONLY ---- */
+  .sheet[data-print="data"] {
     background: #fff !important;
     border: none !important;
-    width: 100%;
+    width: 277mm !important;
+    height: 190mm !important;
   }
 
-  /* In print-mode: hide all static labels/decorations */
-  .print-mode .e-label,
-  .print-mode .e-colon,
-  .print-mode .exam-approval .e-label,
-  .print-mode .approval-sig-area,
-  .print-mode .approval-line,
-  .print-mode .approval-caption,
-  .print-mode .c-header,
-  .print-mode .c-title,
-  .print-mode .c-subtitle,
-  .print-mode .new-badge,
-  .print-mode .c-reg-label,
-  .print-mode .c-cell-label,
-  .print-mode .c-commission-label-row .c-cell-label,
-  .print-mode .c-sig-space,
-  .print-mode .c-sig-line,
-  .print-mode .c-sn-label,
-  .print-mode .watermark {
-    display: none !important;
+  /* ---- PRINT DATA ONLY: hide labels but keep positions ---- */
+  .sheet[data-print="data"] .e-label,
+  .sheet[data-print="data"] .e-colon,
+  .sheet[data-print="data"] .e-rec-label,
+  .sheet[data-print="data"] .approval-sig-area,
+  .sheet[data-print="data"] .approval-line,
+  .sheet[data-print="data"] .approval-caption,
+  .sheet[data-print="data"] .approval-name-line,
+  .sheet[data-print="data"] .c-header,
+  .sheet[data-print="data"] .c-title-wrap,
+  .sheet[data-print="data"] .c-subtitle,
+  .sheet[data-print="data"] .c-reg-label,
+  .sheet[data-print="data"] .c-cell-label,
+  .sheet[data-print="data"] .c-sig-space,
+  .sheet[data-print="data"] .c-sig-line,
+  .sheet[data-print="data"] .c-sn-label,
+  .sheet[data-print="data"] .watermark {
+    visibility: hidden !important;
   }
 
-  /* Remove borders/backgrounds */
-  .print-mode .c-table-row,
-  .print-mode .c-cell,
-  .print-mode .c-reg-row,
-  .print-mode .c-signatory-block,
-  .print-mode .exam-section,
-  .print-mode .cert-section {
+  .sheet[data-print="data"] .e-underline {
+    border-bottom: none !important;
+  }
+
+  .sheet[data-print="data"] .c-table-row,
+  .sheet[data-print="data"] .c-cell,
+  .sheet[data-print="data"] .c-reg-row,
+  .sheet[data-print="data"] .c-signatory-block,
+  .sheet[data-print="data"] .exam-section,
+  .sheet[data-print="data"] .cert-section,
+  .sheet[data-print="data"] .exam-row,
+  .sheet[data-print="data"] .e-field,
+  .sheet[data-print="data"] .exam-fields,
+  .sheet[data-print="data"] .exam-inner,
+  .sheet[data-print="data"] .exam-approval {
     border: none !important;
   }
 
-  /* Keep data values */
-  .print-mode .e-value,
-  .print-mode .c-cell-value,
-  .print-mode .c-name,
-  .print-mode .c-bold,
-  .print-mode .c-addr2-val,
-  .print-mode .c-reg-value,
-  .print-mode .approval-name,
-  .print-mode .approval-sub,
-  .print-mode .c-sig-name,
-  .print-mode .c-sig-title,
-  .print-mode .c-sn-value {
-    display: block !important;
+  .sheet[data-print="data"] .e-value,
+  .sheet[data-print="data"] .c-cell-value,
+  .sheet[data-print="data"] .c-name,
+  .sheet[data-print="data"] .c-bold,
+  .sheet[data-print="data"] .c-addr2-val,
+  .sheet[data-print="data"] .c-reg-value,
+  .sheet[data-print="data"] .approval-name,
+  .sheet[data-print="data"] .approval-sub,
+  .sheet[data-print="data"] .c-sig-name,
+  .sheet[data-print="data"] .c-sig-title,
+  .sheet[data-print="data"] .c-sn-value {
+    visibility: visible !important;
     color: #000 !important;
   }
-
-  .print-mode .c-sn-value { color: #000 !important; }
 }

@@ -5,9 +5,6 @@ import { CertificateComponent } from './certificate/certificate';
   selector: 'app-root',
   standalone: true,
   imports: [CertificateComponent],
-  template: '<app-certificate></app-certificate>',
-  styles: [`
-    :host { display: block; }
-  `]
+  template: '<app-certificate></app-certificate>'
 })
 export class App {}
