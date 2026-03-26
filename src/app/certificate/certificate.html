@@ -1,0 +1,201 @@
+<div class="page-wrapper">
+
+  <!-- Buttons -->
+  <div class="btn-row no-print">
+    <button class="btn btn-preview" (click)="showPreview()">Preview</button>
+    <button class="btn btn-print" (click)="print()">Print</button>
+  </div>
+
+  <!-- Full Sheet: 3 columns -->
+  <div class="sheet" [class.preview-mode]="isPreview" [class.print-mode]="!isPreview">
+
+    <!-- LEFT: Exam Info -->
+    <div class="exam-section">
+      <div class="exam-inner">
+
+        <div class="exam-row">
+          <span class="e-label">TYPE/CLASS OF<br>EXAMINATION</span>
+          <span class="e-colon">:</span>
+          <span class="e-value">{{typeClass}}</span>
+        </div>
+
+        <div class="exam-row no-label">
+          <span class="e-value e-indent">{{dateTaken}}</span>
+        </div>
+
+        <div class="exam-row label-only">
+          <span class="e-label">DATE TAKEN</span>
+        </div>
+
+        <div class="exam-row">
+          <span class="e-label">PLACE</span>
+          <span class="e-colon">:</span>
+          <span class="e-value">{{place}}</span>
+        </div>
+
+        <div class="exam-row">
+          <span class="e-label">RATING</span>
+          <span class="e-colon">:</span>
+          <span class="e-value">{{rating}}</span>
+        </div>
+
+        <div class="exam-row">
+          <span class="e-label">PAID UNDER OR NO.</span>
+          <span class="e-colon">:</span>
+          <span class="e-value">{{orNo}}</span>
+        </div>
+
+        <div class="exam-row">
+          <span class="e-label">AMOUNT</span>
+          <span class="e-colon">:</span>
+          <span class="e-value">{{amount}}</span>
+        </div>
+
+        <div class="exam-row">
+          <span class="e-label">DATE</span>
+          <span class="e-colon">:</span>
+          <span class="e-value">{{date}}</span>
+        </div>
+
+        <div class="exam-approval">
+          <div class="e-label">RECOMMENDING APPROVAL:</div>
+          <div class="approval-sig-area"></div>
+          <div class="approval-line"></div>
+          <div class="approval-caption">SIGNATURE</div>
+          <div class="approval-name">{{signatoryName}}</div>
+          <div class="approval-caption">NAME</div>
+          <div class="approval-sub">{{signatoryTitle}}</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MIDDLE: Certificate -->
+    <div class="cert-section">
+      <ng-container *ngTemplateOutlet="certCard; context: { watermark: 'RECEIVED COPY' }"></ng-container>
+    </div>
+
+    <!-- RIGHT: Duplicate -->
+    <div class="cert-section">
+      <ng-container *ngTemplateOutlet="certCard; context: { watermark: 'PROCESSING COPY' }"></ng-container>
+    </div>
+
+  </div>
+</div>
+
+<!-- Certificate Card Template -->
+<ng-template #certCard let-watermark="watermark">
+  <div class="cert-card">
+
+    <!-- Watermark -->
+    <div class="watermark" *ngIf="isPreview">{{watermark}}</div>
+
+    <!-- Header: logo left, text center -->
+    <div class="c-header">
+      <img src="ntc-seal.png.png" alt="NTC Seal" class="c-logo" />
+      <div class="c-header-text">
+        <div class="c-republic">Republic of the Philippines</div>
+        <div class="c-agency">Commission on Information and</div>
+        <div class="c-agency">Communications Technology</div>
+        <div class="c-ntc">National Telecommunications Commission</div>
+        <div class="c-metro">Metro Manila</div>
+      </div>
+      <div class="new-badge">NEW</div>
+    </div>
+
+    <!-- Certificate title -->
+    <div class="c-title">SPECIAL RADIOTELEPHONE OPERATOR CERTIFICATE</div>
+    <div class="c-subtitle">(SROP-GOV'T)</div>
+
+    <!-- Registration -->
+    <div class="c-reg-row">
+      <span class="c-reg-label">Registration No.</span>
+      <span class="c-reg-value">{{registrationNo}}</span>
+    </div>
+
+    <!-- NAME row -->
+    <div class="c-table-row border-top border-bottom">
+      <div class="c-cell full">
+        <div class="c-cell-label">NAME:</div>
+        <div class="c-cell-value c-name">{{name}}</div>
+      </div>
+    </div>
+
+    <!-- ADDRESS row -->
+    <div class="c-table-row border-bottom">
+      <div class="c-cell full">
+        <div class="c-cell-label">ADDRESS:</div>
+        <div class="c-cell-value">{{address1}}</div>
+      </div>
+    </div>
+
+    <!-- Address line 2 -->
+    <div class="c-table-row border-bottom">
+      <div class="c-cell full c-addr2">
+        <div class="c-cell-value c-addr2-val">{{address2}}</div>
+      </div>
+    </div>
+
+    <!-- BIRTHDATE / CITIZENSHIP -->
+    <div class="c-table-row border-bottom">
+      <div class="c-cell half border-right">
+        <div class="c-cell-label">BIRTHDATE (MO/DA/YR):</div>
+        <div class="c-cell-value c-bold">{{birthdate}}</div>
+      </div>
+      <div class="c-cell half">
+        <div class="c-cell-label">CITIZENSHIP:</div>
+        <div class="c-cell-value c-bold">{{citizenship}}</div>
+      </div>
+    </div>
+
+    <!-- SEX / HT / WT -->
+    <div class="c-table-row border-bottom">
+      <div class="c-cell third border-right">
+        <div class="c-cell-label">SEX:</div>
+        <div class="c-cell-value c-bold">{{sex}}</div>
+      </div>
+      <div class="c-cell third border-right">
+        <div class="c-cell-label">HT (CM):</div>
+        <div class="c-cell-value c-bold">{{height}}</div>
+      </div>
+      <div class="c-cell third">
+        <div class="c-cell-label">WT (KG):</div>
+        <div class="c-cell-value c-bold">{{weight}}</div>
+      </div>
+    </div>
+
+    <!-- DATE ISSUED / VALID UNTIL -->
+    <div class="c-table-row border-bottom">
+      <div class="c-cell half border-right">
+        <div class="c-cell-label">DATE ISSUED:</div>
+        <div class="c-cell-value c-bold">{{dateIssued}}</div>
+      </div>
+      <div class="c-cell half">
+        <div class="c-cell-label">VALID UNTIL:</div>
+        <div class="c-cell-value c-bold">{{validUntil}}</div>
+      </div>
+    </div>
+
+    <!-- FOR THE COMMISSION -->
+    <div class="c-table-row border-bottom">
+      <div class="c-cell full c-commission-label-row">
+        <div class="c-cell-label">FOR THE COMMISSION:</div>
+        <div class="c-sig-space"></div>
+      </div>
+    </div>
+
+    <!-- Signatory -->
+    <div class="c-signatory-block">
+      <div class="c-sig-line"></div>
+      <div class="c-sig-name">{{commissionSignatory}}</div>
+      <div class="c-sig-title">{{commissionTitle}}</div>
+    </div>
+
+    <!-- SN -->
+    <div class="c-sn-row">
+      <span class="c-sn-label">SN-</span>
+      <span class="c-sn-value">{{snNumber}}</span>
+    </div>
+
+  </div>
+</ng-template>

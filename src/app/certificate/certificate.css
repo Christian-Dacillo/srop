@@ -1,0 +1,376 @@
+/* ===== RESET ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ===== PAGE ===== */
+.page-wrapper {
+  font-family: 'Times New Roman', Times, serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: #d0d0d0;
+  min-height: 100vh;
+}
+
+/* ===== BUTTONS ===== */
+.btn-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.btn {
+  padding: 8px 28px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.btn-preview { background: #1565c0; color: #fff; }
+.btn-print   { background: #2e7d32; color: #fff; }
+
+/* ===== SHEET ===== */
+.sheet {
+  display: flex;
+  flex-direction: row;
+  width: 297mm;
+  border: 1.5px solid #888;
+  overflow: hidden;
+}
+
+.sheet.preview-mode {
+  background: #f0e6c0;
+}
+.sheet.print-mode {
+  background: #fff;
+}
+
+/* ===== EXAM SECTION (left) ===== */
+.exam-section {
+  width: 88mm;
+  flex-shrink: 0;
+  border-right: 1.5px solid #888;
+  padding: 8px 8px 6px 8px;
+}
+
+.exam-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 8.5pt;
+}
+
+.exam-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+  line-height: 1.3;
+}
+.exam-row.no-label { padding-left: 0; }
+.exam-row.label-only { margin-top: -3px; }
+
+.e-label {
+  font-size: 7pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  min-width: 82px;
+  line-height: 1.25;
+}
+.e-colon { font-weight: bold; font-size: 8.5pt; }
+.e-value { font-size: 8.5pt; }
+.e-indent { padding-left: 10px; }
+
+/* Approval block */
+.exam-approval {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+.approval-sig-area { height: 32px; width: 100%; }
+.approval-line {
+  border-top: 1px solid #333;
+  width: 100%;
+  margin-bottom: 1px;
+}
+.approval-caption {
+  font-size: 6.5pt;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+  text-align: center;
+}
+.approval-name {
+  font-size: 8pt;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  margin-top: 2px;
+}
+.approval-sub {
+  font-size: 7.5pt;
+  width: 100%;
+  text-align: center;
+}
+
+/* ===== CERT SECTION ===== */
+.cert-section {
+  flex: 1;
+  border-right: 1.5px solid #888;
+  display: flex;
+  flex-direction: column;
+}
+.cert-section:last-child { border-right: none; }
+
+/* ===== CERT CARD ===== */
+.cert-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  font-size: 8pt;
+  overflow: hidden;
+}
+
+/* Watermark */
+.watermark {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-size: 20pt;
+  font-weight: bold;
+  color: rgba(180, 50, 50, 0.18);
+  white-space: nowrap;
+  pointer-events: none;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  z-index: 1;
+}
+
+/* ===== HEADER ===== */
+.c-header {
+  display: flex;
+  align-items: center;
+  padding: 6px 6px 4px 6px;
+  gap: 4px;
+  position: relative;
+}
+
+.c-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.c-header-text {
+  flex: 1;
+  text-align: center;
+  line-height: 1.3;
+}
+.c-republic { font-size: 7.5pt; }
+.c-agency   { font-size: 7pt; }
+.c-ntc      { font-size: 8.5pt; font-weight: bold; }
+.c-metro    { font-size: 7pt; }
+
+.new-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 8.5pt;
+  font-weight: bold;
+  color: #c00;
+  border: 1.5px solid #c00;
+  padding: 1px 5px;
+  line-height: 1.4;
+  font-family: Arial, sans-serif;
+}
+
+/* ===== TITLE ===== */
+.c-title {
+  text-align: center;
+  font-size: 8pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 2px 6px 0;
+  line-height: 1.3;
+}
+.c-subtitle {
+  text-align: center;
+  font-size: 7pt;
+  padding-bottom: 3px;
+}
+
+/* ===== REGISTRATION ===== */
+.c-reg-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 2px 6px 3px;
+  border-bottom: 1px solid #666;
+}
+.c-reg-label { font-size: 7.5pt; }
+.c-reg-value { font-size: 11pt; font-weight: bold; letter-spacing: 0.5px; }
+
+/* ===== TABLE ROWS ===== */
+.c-table-row {
+  display: flex;
+  flex-direction: row;
+}
+.border-top    { border-top: 1px solid #666; }
+.border-bottom { border-bottom: 1px solid #666; }
+
+.c-cell {
+  display: flex;
+  flex-direction: column;
+  padding: 2px 6px;
+}
+.c-cell.full   { flex: 1; }
+.c-cell.half   { flex: 1; }
+.c-cell.third  { flex: 1; }
+.border-right  { border-right: 1px solid #666; }
+
+.c-cell-label {
+  font-size: 6.5pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.c-cell-value {
+  font-size: 9pt;
+  line-height: 1.4;
+}
+.c-name  { font-size: 10pt; font-weight: bold; }
+.c-bold  { font-weight: bold; }
+
+/* Address line 2 */
+.c-addr2 { padding-top: 0; padding-bottom: 2px; }
+.c-addr2-val {
+  font-size: 8pt;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Commission label row */
+.c-commission-label-row {
+  flex-direction: column;
+}
+.c-sig-space { height: 28px; }
+
+/* ===== SIGNATORY BLOCK ===== */
+.c-signatory-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 6px 0;
+  border-bottom: 1px solid #666;
+}
+.c-sig-line {
+  border-top: 1px solid #444;
+  width: 80%;
+  margin-bottom: 1px;
+}
+.c-sig-name {
+  font-size: 8.5pt;
+  font-weight: bold;
+  text-align: center;
+}
+.c-sig-title {
+  font-size: 7.5pt;
+  text-align: center;
+  padding-bottom: 3px;
+}
+
+/* ===== SN ROW ===== */
+.c-sn-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 0 6px;
+}
+.c-sn-label {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #c00;
+}
+.c-sn-value {
+  font-size: 22pt;
+  font-weight: bold;
+  color: #c00;
+  letter-spacing: 2px;
+}
+
+/* ===== PRINT ===== */
+@media print {
+  @page { size: A4 landscape; margin: 6mm; }
+
+  body { background: #fff !important; }
+
+  .no-print { display: none !important; }
+
+  .page-wrapper {
+    background: none !important;
+    padding: 0;
+    min-height: unset;
+  }
+
+  .sheet {
+    background: #fff !important;
+    border: none !important;
+    width: 100%;
+  }
+
+  /* In print-mode: hide all static labels/decorations */
+  .print-mode .e-label,
+  .print-mode .e-colon,
+  .print-mode .exam-approval .e-label,
+  .print-mode .approval-sig-area,
+  .print-mode .approval-line,
+  .print-mode .approval-caption,
+  .print-mode .c-header,
+  .print-mode .c-title,
+  .print-mode .c-subtitle,
+  .print-mode .new-badge,
+  .print-mode .c-reg-label,
+  .print-mode .c-cell-label,
+  .print-mode .c-commission-label-row .c-cell-label,
+  .print-mode .c-sig-space,
+  .print-mode .c-sig-line,
+  .print-mode .c-sn-label,
+  .print-mode .watermark {
+    display: none !important;
+  }
+
+  /* Remove borders/backgrounds */
+  .print-mode .c-table-row,
+  .print-mode .c-cell,
+  .print-mode .c-reg-row,
+  .print-mode .c-signatory-block,
+  .print-mode .exam-section,
+  .print-mode .cert-section {
+    border: none !important;
+  }
+
+  /* Keep data values */
+  .print-mode .e-value,
+  .print-mode .c-cell-value,
+  .print-mode .c-name,
+  .print-mode .c-bold,
+  .print-mode .c-addr2-val,
+  .print-mode .c-reg-value,
+  .print-mode .approval-name,
+  .print-mode .approval-sub,
+  .print-mode .c-sig-name,
+  .print-mode .c-sig-title,
+  .print-mode .c-sn-value {
+    display: block !important;
+    color: #000 !important;
+  }
+
+  .print-mode .c-sn-value { color: #000 !important; }
+}
