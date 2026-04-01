@@ -2,13 +2,14 @@
 
   <div class="btn-row no-print">
     <button class="btn btn-preview" (click)="isPreview = !isPreview">
-      {{ isPreview ? '✏ Edit Mode' : '👁 Preview Mode' }}
+      {{ isPreview ? ' Edit' : ' Preview ' }}
     </button>
-    <button class="btn btn-print-bg" (click)="printWithBackground()">🖨 Print with Background</button>
-    <button class="btn btn-print" (click)="print()">🖨 Print Data Only</button>
-    <span class="hint" *ngIf="!isPreview">Click any value to edit</span>
+    <button class="btn btn-print-bg" (click)="printWithBackground()"> Print Form</button>
+    <button class="btn btn-print" (click)="print()"> Print Data</button>
+    
   </div>
 
+  <div class="sheet-scaler">
   <div class="sheet" [class.preview-mode]="isPreview" [class.print-mode]="!isPreview" [attr.data-print]="printMode">
 
     <!-- LEFT: Exam Info -->
@@ -79,7 +80,7 @@
           <div class="approval-line"></div>
           <div class="approval-caption">SIGNATURE</div>
           <div class="approval-name-wrap">
-            <span class="approval-name editable" contenteditable="true">ENGR. FRANCIS THOMAS M. ALFANTA</span>
+            <span class="approval-name editable" contenteditable="true">ENGR. WILLIAM RAMON L. LUBER</span>
           </div>
           <div class="approval-name-line"></div>
           <div class="approval-caption">NAME</div>
@@ -99,6 +100,12 @@
       <ng-container *ngTemplateOutlet="certCard; context: { watermark: '(ISSUING UNIT)' }"></ng-container>
     </div>
 
+    <!-- FAR RIGHT: Third Copy -->
+    <div class="cert-section">
+      <ng-container *ngTemplateOutlet="certCard; context: { watermark: '' }"></ng-container>
+    </div>
+
+  </div>
   </div>
 </div>
 
@@ -118,9 +125,9 @@
     </div>
 
     <div class="c-title-wrap">
-      <span class="c-title">SPECIAL RADIOTELEPHONE OPERATOR CERTIFI</span><span class="c-title-cate"><span class="new-badge editable" contenteditable="true">NEW</span>CATE</span>
+      <span class="c-title">GOVERNMENT RADIO OPERATOR CERTIFI</span><span class="c-title-cate"><span class="new-badge editable" contenteditable="true">NEW</span>CATE (GROC)</span>
     </div>
-    <div class="c-subtitle">(SROP-GOV'T)</div>
+   
 
     <div class="c-reg-row">
       <span class="c-reg-label">Registration No.</span>

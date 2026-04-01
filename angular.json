@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "srop-cert": {
+    "groc-proj": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -81,10 +81,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "srop-cert:build:production"
+              "buildTarget": "groc-proj:build:production"
             },
             "development": {
-              "buildTarget": "srop-cert:build:development"
+              "buildTarget": "groc-proj:build:development"
             }
           },
           "defaultConfiguration": "development"

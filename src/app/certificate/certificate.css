@@ -12,6 +12,12 @@
   min-height: 100vh;
 }
 
+.sheet-scaler {
+  transform: scale(0.70);
+  transform-origin: top center;
+  margin-bottom: calc((277mm * 0.70) - 277mm);
+}
+
 /* ===== BUTTONS ===== */
 .btn-row {
   display: flex;
@@ -63,7 +69,7 @@
 .sheet {
   display: flex;
   flex-direction: row;
-  width: 297mm;
+  width: 420mm;
   border: 1.5px solid #888;
   overflow: hidden;
 }
@@ -140,6 +146,7 @@
   width: 100%;
   line-height: 1.3;
   outline: none;
+  text-align: right;
 }
 
 .exam-approval {
@@ -243,12 +250,14 @@
   position: relative;
 }
 .c-logo {
+  margin-left: 50px;
   width: 46px;
   height: 46px;
   object-fit: contain;
   flex-shrink: 0;
 }
 .c-header-text {
+  margin-right: 80px;
   flex: 1;
   text-align: center;
   line-height: 1.3;
@@ -305,8 +314,14 @@
   gap: 5px;
   padding: 2px 6px 3px;
 }
-.c-reg-label { font-size: 7.5pt; }
-.c-reg-value { font-size: 11pt; font-weight: bold; letter-spacing: 0.5px; text-decoration: underline; }
+.c-reg-label {
+   font-size: 7.5pt; }
+
+.c-reg-value { 
+  font-size: 11pt; 
+  font-weight: bold;
+   letter-spacing: 0.5px; 
+   text-decoration: underline; }
 
 /* ===== TABLE ROWS ===== */
 .c-table-row { display: flex; flex-direction: row; }
@@ -389,7 +404,7 @@
 
 /* ===== PRINT ===== */
 @media print {
-  @page { size: A4 landscape; margin: 8mm; }
+  @page { size: A4 portrait; margin: 8mm; }
 
   * {
     -webkit-print-color-adjust: exact !important;
@@ -407,11 +422,17 @@
     display: block;
   }
 
+  .sheet-scaler {
+    transform: scale(0.70);
+    transform-origin: top left;
+    margin-bottom: 0;
+  }
+
   /* ---- PRINT WITH BACKGROUND ---- */
   .sheet[data-print="background"] {
     background-color: #f0e6c0 !important;
     border: 1.5px solid #888 !important;
-    width: 277mm !important;
+    width: 400mm !important;
     height: 190mm !important;
     box-shadow: inset 0 0 0 1000px #f0e6c0 !important;
   }
@@ -445,7 +466,7 @@
   .sheet[data-print="data"] {
     background: #fff !important;
     border: none !important;
-    width: 277mm !important;
+    width: 400mm !important;
     height: 190mm !important;
   }
 
@@ -485,6 +506,41 @@
   .sheet[data-print="data"] .exam-inner,
   .sheet[data-print="data"] .exam-approval {
     border: none !important;
+  }
+
+  /* Fix approval name/sub alignment in data print — align with FOR THE COMMISSION row */
+  .sheet[data-print="data"] .exam-inner {
+    justify-content: flex-start !important;
+  }
+
+  .sheet[data-print="data"] .exam-approval {
+    position: absolute !important;
+    bottom: 100mm !important;
+    left: 10px !important;
+    right: 10px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .sheet[data-print="data"] .exam-section {
+    position: relative !important;
+  }
+
+  .sheet[data-print="data"] .approval-name-wrap {
+    width: 100% !important;
+    text-align: center !important;
+    display: block !important;
+  }
+
+  .sheet[data-print="data"] .approval-name {
+    text-align: center !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .sheet[data-print="data"] .approval-sub {
+    text-align: left !important;
+    display: block !important;
+    width: 100% !important;
   }
 
   .sheet[data-print="data"] .e-value,
